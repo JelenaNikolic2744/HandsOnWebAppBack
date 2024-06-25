@@ -5,17 +5,18 @@ import {
     PrimaryGeneratedColumn,
     ManyToOne,
     JoinColumn,
+    PrimaryColumn,
 } from 'typeorm';
 
 @Entity('appliances')
 export class Appliance {
-    @PrimaryGeneratedColumn('increment', {
+    @Column({
         type: 'int',
         name: 'job_id'
     })
     jobId: number;
 
-    @Column({
+    @PrimaryColumn({
         type: 'varchar',
         length: 20,
         nullable: false,
@@ -24,7 +25,7 @@ export class Appliance {
     })
     userName: string;
 
-    @Column({
+    @PrimaryColumn({
         type: 'varchar',
         length: 20,
         nullable: false,

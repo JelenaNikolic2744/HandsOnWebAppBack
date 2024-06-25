@@ -1,7 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, DeleteResult, Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { Appliance } from './entities/appliances.entity';
 import { AppliancesDto } from './dto/appliances.dto';
+
+export interface JobAplliance {
+    jobid: number;
+    username: string;
+    useremail: string;
+    appliancetext: string;
+    jobname: string;
+    jobdescription: string;
+    companyname: string;
+}
 
 @Injectable()
 export class AppliancesRepository extends Repository<Appliance> {
@@ -30,5 +40,18 @@ export class AppliancesRepository extends Repository<Appliance> {
             .where('job_id = :jobId', { jobId: appliancesDto.jobId })
             .andWhere('user_email = :userEmail', { userEmail: appliancesDto.userEmail })
             .getOne()
+    }
+
+    async getJobAppliance(appliancesDto: AppliancesDto): Promise<JobAplliance> {
+        let query = await this.query(`select  appliances.job_id as jobId,
+                appliances.user_name as userName,
+                appliances.user_email as userEmail,
+                appliances.appliance_text as applianceText,
+                job.job_name as jobName,
+                job.job_description as jobDescription,
+                job.company_name as companyName
+                from appliances left join job 
+                on appliances.job_id = job.job_id where appliances.job_id  = ${appliancesDto.jobId}`)
+        return query[0]
     }
 }
