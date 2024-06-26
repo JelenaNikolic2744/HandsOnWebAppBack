@@ -7,6 +7,11 @@ import { AppliancesRepository } from './appliances.repository';
 export class AppliancesController {
     constructor(private readonly appliancesService: AppliancesService, private appliancesRepository: AppliancesRepository) { }
 
+    /**
+  * @description Returns a string if email sent successfully
+  * @return Promise<string>
+  * @memberof AppliancesController
+  */
     @Post()
     async createJob(
         @Body(
@@ -16,7 +21,7 @@ export class AppliancesController {
                 whitelist: true,
             }),
         )
-        applianceDto: AppliancesDto): Promise<string>  {
+        applianceDto: AppliancesDto): Promise<string> {
         return await this.appliancesService.handleAppliance(applianceDto);
     }
 }

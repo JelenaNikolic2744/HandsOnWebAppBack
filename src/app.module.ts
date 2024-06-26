@@ -3,6 +3,9 @@ import { AppliancesModule } from './appliances/appliances.module';
 import { JobModule } from './job/job.module';
 import { CompanyModule } from './company/company.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Appliance } from './appliances/entities/appliances.entity';
+import { Company } from './company/entities/company.entity';
+import { Job } from './job/entities/job.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -15,6 +18,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     autoLoadEntities: true,
     synchronize: true,
     logging: true,
+    entities:[Company, Job, Appliance]
   }), AppliancesModule, JobModule, CompanyModule],
   controllers: [],
   providers: [],

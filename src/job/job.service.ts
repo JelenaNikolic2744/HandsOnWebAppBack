@@ -2,12 +2,20 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JobDto, JobIdDto } from './dto/job.dto';
 import { JobRepository } from './job.repository';
 import { Job } from './entities/job.entity';
+import { CompanyRepository } from 'src/company/company.repository';
 
 @Injectable()
 export class JobService {
-    constructor(private jobRepository: JobRepository) { }
+    constructor(private jobRepository: JobRepository, private companyRepository: CompanyRepository) { }
 
     async createJob(jobData: JobDto) {
+
+        let existsCompany = await this.companyRepository.checkCompany(jobData.companyId)
+        if(!existsCompany){
+            throw new HttpException(
+                'Company does not exists', HttpStatus.FOUND
+            );  
+        }
 
         let foundJob = await this.jobRepository.existsJob(jobData)
         if(foundJob){

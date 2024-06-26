@@ -19,14 +19,15 @@ export class JobRepository extends Repository<Job> {
         const newJob = this.create({
             jobName: job.jobName,
             jobDescription: job.jobDescription,
-            companyName: job.companyName
+            companyId: job.companyId,
         });
         return await this.save(newJob)
     }
 
     async existsJob(job: JobDto): Promise<Job> {
         return await this.createQueryBuilder('job')
-            .where('company_name = :companyName', { companyName: job.companyName })
+            .where('company_id = :companyId', { companyId: job.companyId })
+            .andWhere('job_name = :jobName', { jobName: job.jobName })
             .getOne()
     }
 

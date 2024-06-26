@@ -49,9 +49,12 @@ export class AppliancesRepository extends Repository<Appliance> {
                 appliances.appliance_text as applianceText,
                 job.job_name as jobName,
                 job.job_description as jobDescription,
-                job.company_name as companyName
+                company.company_name as companyName
                 from appliances left join job 
-                on appliances.job_id = job.job_id where appliances.job_id  = ${appliancesDto.jobId}`)
+                on appliances.job_id = job.job_id
+                left join company
+	            on job.company_id = company.company_id
+                 where appliances.job_id  = ${appliancesDto.jobId}`)
         return query[0]
     }
 }

@@ -1,9 +1,12 @@
 import { Appliance } from 'src/appliances/entities/appliances.entity';
+import { Company } from 'src/company/entities/company.entity';
 import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
     OneToMany,
+    ManyToOne,
+    JoinColumn,
 } from 'typeorm';
 
 @Entity('job')
@@ -31,13 +34,10 @@ export class Job {
     jobDescription: string;
 
     @Column({
-        type: 'varchar',
-        length: 20,
-        nullable: false,
-        unique: true,
-        name: 'company_name'
+        type: 'int',
+        name: 'company_id'
     })
-    companyName: string;
+    companyId: number;
 
     @OneToMany(
         type => Appliance,
@@ -45,4 +45,12 @@ export class Job {
         { eager: true },
     )
     appliances: Appliance[];
+
+    @ManyToOne(
+        type => Company,
+        company => company.companyId,
+        {onDelete:'CASCADE'}
+    )
+    @JoinColumn({ name: 'company_id' })
+    company: Company;
 }

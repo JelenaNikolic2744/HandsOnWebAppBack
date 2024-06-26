@@ -1,6 +1,14 @@
-import { IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class JobDto {
+
+    /**
+    * @description Parameter job id
+    * @type number
+    * @memberof JobDto
+    */
+    @IsOptional()
+    jobId: number
 
     /**
     * @description Parameter job name
@@ -21,22 +29,22 @@ export class JobDto {
     jobDescription: string;
 
     /**
-    * @description Parameter company name
-    * @type string
+    * @description Parameter company id
+    * @type number
     * @memberof JobDto
     */
     @IsNotEmpty()
-    @IsString()
-    companyName: string;
+    @IsNumber()
+    companyId: number;
 
 }
 
 export class JobIdDto {
 
     /**
-    * @description Parameter job name
-    * @type string
-    * @memberof JobDto
+    * @description Parameter job id
+    * @type number
+    * @memberof JobIdDto
     */
     @IsNotEmpty()
     @IsNumber()
