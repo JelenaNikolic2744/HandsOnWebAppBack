@@ -7,6 +7,11 @@ import { Job } from './entities/job.entity';
 export class JobController {
     constructor(private readonly jobService: JobService) { }
 
+    /**
+  * @description Returns a created job
+  * @return Promise<Job>
+  * @memberof JobController
+  */
     @Post()
     async createJob(
         @Body(
@@ -16,15 +21,25 @@ export class JobController {
                 whitelist: true,
             }),
         )
-        job: JobDto): Promise<any> {
+        job: JobDto): Promise<Job> {
         return await this.jobService.createJob(job);
     }
 
+    /**
+  * @description Returns a list of jobs
+  * @return Promise<Job[]>
+  * @memberof JobController
+  */
     @Get()
     async getJobs(): Promise<Job[]> {
         return await this.jobService.getJobs();
     }
 
+    /**
+  * @description Returns a message if successfull delete
+  * @return Promise<string>
+  * @memberof JobController
+  */
     @Delete()
     async deleteTask(
         @Body(

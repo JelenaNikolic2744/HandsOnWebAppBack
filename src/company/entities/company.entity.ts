@@ -1,4 +1,4 @@
-import { Appliance } from 'src/appliances/entities/appliances.entity';
+import { Job } from 'src/job/entities/job.entity';
 import {
     Entity,
     Column,
@@ -22,11 +22,10 @@ export class Company {
         name: 'company_name'
     })
     companyName: string;
-    
+
     @OneToMany(
-        type => Appliance,
-        appliance => appliance.jobId,
-        { eager: true },
+        type => Job,
+        job => job.companyId
     )
-    appliances: Appliance[];
+    job: Job[];
 }

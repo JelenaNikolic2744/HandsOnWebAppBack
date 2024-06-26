@@ -3,35 +3,39 @@ import { IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
 export class AppliancesDto {
 
     /**
-    * @description Parameter job name
-    * @type string
-    * @memberof JobDto
+    * @description Parameter job id
+    * @type number
+    * @memberof AppliancesDto
     */
     @IsNotEmpty()
     @IsNumber()
     jobId: number;
 
     /**
-    * @description Parameter job description
+    * @description Parameter user name
     * @type string
-    * @memberof JobDto
+    * @memberof AppliancesDto
     */
     @IsNotEmpty()
     @IsString()
     userName: string;
 
     /**
-    * @description Parameter company name
+    * @description Parameter user email
     * @type string
-    * @memberof JobDto
+    * @memberof AppliancesDto
     */
     @IsNotEmpty()
     @IsString()
     @IsEmail()
     userEmail: string;
 
+    /**
+    * @description Parameter appliance text
+    * @type string
+    * @memberof AppliancesDto
+    */
     @IsNotEmpty()
     @IsString()
     applianceText: string;
-
 }

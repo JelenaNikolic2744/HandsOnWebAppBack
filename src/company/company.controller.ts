@@ -1,10 +1,17 @@
 import { Controller, Get, Post, Delete, Body, ValidationPipe } from '@nestjs/common';
 import { CompanyService } from './company.service';
+import { CompanyDto, CompanyIdDto } from './dto/company.dto';
+import { Company } from './entities/company.entity';
 
 @Controller('company')
 export class CompanyController {
     constructor(private readonly companyService: CompanyService) { }
 
+    /**
+  * @description Returns a created company
+  * @return Promise<Company>
+  * @memberof CompanyController
+  */
     @Post()
     async createCompany(
         @Body(
@@ -14,15 +21,25 @@ export class CompanyController {
                 whitelist: true,
             }),
         )
-        companyDto: CompanyDto): Promise<any> {
+        companyDto: CompanyDto): Promise<Company> {
         return await this.companyService.createCompany(companyDto);
     }
 
+    /**
+  * @description Returns a list of companies
+  * @return Promise<Company[]>
+  * @memberof CompanyController
+  */
     @Get()
-    async getCompany(): Promise<Company[]> {
-        return await this.jobService.getCompany();
+    async getCompanies(): Promise<Company[]> {
+        return await this.companyService.getCompanies();
     }
 
+    /**
+  * @description Returns message if successfull delete of company
+  * @return Promise<string>
+  * @memberof CompanyController
+  */
     @Delete()
     async deleteCompany(
         @Body(

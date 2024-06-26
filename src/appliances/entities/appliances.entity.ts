@@ -2,10 +2,8 @@ import { Job } from 'src/job/entities/job.entity';
 import {
     Entity,
     Column,
-    PrimaryGeneratedColumn,
     ManyToOne,
     JoinColumn,
-    PrimaryColumn,
 } from 'typeorm';
 
 @Entity('appliances')
@@ -14,9 +12,15 @@ export class Appliance {
         type: 'int',
         name: 'job_id'
     })
+    appliancesId: number;
+
+    @Column({
+        type: 'int',
+        name: 'job_id'
+    })
     jobId: number;
 
-    @PrimaryColumn({
+    @Column({
         type: 'varchar',
         length: 20,
         nullable: false,
@@ -25,7 +29,7 @@ export class Appliance {
     })
     userName: string;
 
-    @PrimaryColumn({
+    @Column({
         type: 'varchar',
         length: 20,
         nullable: false,
@@ -44,7 +48,8 @@ export class Appliance {
 
     @ManyToOne(
         type => Job,
-        job => job.jobId
+        job => job.jobId,
+        {onDelete:'CASCADE'}
     )
     @JoinColumn({ name: 'job_id' })
     job: Job;
