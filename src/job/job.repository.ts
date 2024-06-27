@@ -11,10 +11,10 @@ export class JobRepository extends Repository<Job> {
     }
 
     /**
-   * @description Returns user after it is saved in database
-   * @return Promise<User>
-   * @memberof UserRepository
-   */
+     * @description Saves company and returns it
+     * @return Promise<Job>
+     * @memberof JobRepository
+     */
     async saveJob(job: JobDto): Promise<Job> {
         const newJob = this.create({
             jobName: job.jobName,
@@ -24,6 +24,11 @@ export class JobRepository extends Repository<Job> {
         return await this.save(newJob)
     }
 
+    /**
+    * @description Check if job exists in db by job name and company id
+    * @return Promise<Job>
+    * @memberof JobRepository
+    */
     async existsJob(job: JobDto): Promise<Job> {
         return await this.createQueryBuilder('job')
             .where('company_id = :companyId', { companyId: job.companyId })
@@ -31,6 +36,11 @@ export class JobRepository extends Repository<Job> {
             .getOne()
     }
 
+    /**
+    * @description Checks if job exists in db by job id
+    * @return Promise<Job>
+    * @memberof JobRepository
+    */
     async checkJob(jobId: number): Promise<Job> {
         return await this.createQueryBuilder('job')
             .where('job_id = :jobId', { jobId: jobId })
@@ -38,12 +48,22 @@ export class JobRepository extends Repository<Job> {
 
     }
 
+    /**
+    * @description Get lists of job
+    * @return Promise<Job[]>
+    * @memberof JobRepository
+    */
     async getJobs(): Promise<Job[]> {
         return await this.createQueryBuilder('job')
             .getMany()
 
     }
 
+    /**
+    * @description Delete job and returns delete result
+    * @return Promise<DeleteResult>
+    * @memberof JobRepository
+    */
     async removeJob(jobId: number): Promise<DeleteResult> {
         return await this.createQueryBuilder()
             .delete()

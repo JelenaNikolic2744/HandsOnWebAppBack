@@ -7,7 +7,12 @@ import { CompanyRepository } from './company.repository';
 export class CompanyService {
     constructor(private companyRepository: CompanyRepository) { }
 
-    async createCompany(companyData: CompanyDto) {
+    /**
+     * @description If company exists, saves it
+     * @return Promise<Company>
+     * @memberof CompanyService
+     */
+    async createCompany(companyData: CompanyDto): Promise<Company> {
 
         let foundCompany = await this.companyRepository.checkCompany(companyData.companyId)
         if (foundCompany) {
@@ -20,10 +25,20 @@ export class CompanyService {
 
     }
 
+    /**
+     * @description Get a list of companies
+     * @return Promise<Company[]>
+     * @memberof CompanyService
+     */
     async getCompanies(): Promise<Company[]> {
         return await this.companyRepository.getCompanies()
     }
 
+    /**
+     * @description Removes a company by company ID
+     * @return Promise<string>
+     * @memberof CompanyService
+     */
     async removeCompany(companyIdDto: CompanyIdDto): Promise<string> {
 
         let foundCompany = await this.companyRepository.checkCompany(companyIdDto.companyId)

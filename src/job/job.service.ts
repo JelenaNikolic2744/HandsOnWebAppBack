@@ -8,7 +8,12 @@ import { CompanyRepository } from 'src/company/company.repository';
 export class JobService {
     constructor(private jobRepository: JobRepository, private companyRepository: CompanyRepository) { }
 
-    async createJob(jobData: JobDto) {
+    /**
+     * @description Check if company and job exists and saves it
+     * @return Promise<Job>
+     * @memberof JobService
+     */
+    async createJob(jobData: JobDto):Promise<Job> {
 
         let existsCompany = await this.companyRepository.checkCompany(jobData.companyId)
         if(!existsCompany){
@@ -28,10 +33,20 @@ export class JobService {
        
     }
 
+    /**
+     * @description Return a list of jobs
+     * @return Promise<Job[]>
+     * @memberof JobService
+     */
     async getJobs(): Promise<Job[]> {
         return await this.jobRepository.getJobs()
     }
 
+    /**
+     * @description Removes a job by job ID
+     * @return Promise<string>
+     * @memberof JobService
+     */
     async removeJob(jobIdDto: JobIdDto): Promise<string> {
 
         let foundJob = await this.jobRepository.checkJob(jobIdDto.jobId)

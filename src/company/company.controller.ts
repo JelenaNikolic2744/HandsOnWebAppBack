@@ -8,10 +8,10 @@ export class CompanyController {
     constructor(private readonly companyService: CompanyService) { }
 
     /**
-  * @description Returns a created company
-  * @return Promise<Company>
-  * @memberof CompanyController
-  */
+     * @description Returns a created company
+     * @return Promise<Company>
+     * @memberof CompanyController
+     */
     @Post()
     async createCompany(
         @Body(
@@ -26,20 +26,20 @@ export class CompanyController {
     }
 
     /**
-  * @description Returns a list of companies
-  * @return Promise<Company[]>
-  * @memberof CompanyController
-  */
+     * @description Returns a list of companies
+     * @return Promise<Company[]>
+     * @memberof CompanyController
+     */
     @Get()
     async getCompanies(): Promise<Company[]> {
         return await this.companyService.getCompanies();
     }
 
     /**
-  * @description Returns message if successfull delete of company
-  * @return Promise<string>
-  * @memberof CompanyController
-  */
+     * @description Returns message if successfull delete of company
+     * @return Promise<string>
+     * @memberof CompanyController
+     */
     @Delete()
     async deleteCompany(
         @Body(

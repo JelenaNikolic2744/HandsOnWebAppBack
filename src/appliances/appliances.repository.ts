@@ -21,10 +21,10 @@ export class AppliancesRepository extends Repository<Appliance> {
     }
 
     /**
-   * @description Returns user after it is saved in database
-   * @return Promise<User>
-   * @memberof UserRepository
-   */
+     * @description Creates and saves appliance and returns it
+     * @return Promise<Appliance>
+     * @memberof AppliancesRepository
+     */
     async saveAppliance(appliancesDto: AppliancesDto): Promise<Appliance> {
         const newAppliance = this.create({
             jobId: appliancesDto.jobId,
@@ -35,6 +35,11 @@ export class AppliancesRepository extends Repository<Appliance> {
         return await this.save(newAppliance)
     }
 
+    /**
+    * @description Check if appliance exists in db by jobId
+    * @return Promise<Appliance>
+    * @memberof AppliancesRepository
+    */
     async existsAppliance(appliancesDto: AppliancesDto): Promise<Appliance> {
         return await this.createQueryBuilder('appliance')
             .where('job_id = :jobId', { jobId: appliancesDto.jobId })
@@ -42,6 +47,11 @@ export class AppliancesRepository extends Repository<Appliance> {
             .getOne()
     }
 
+    /**
+    * @description Returns job appliance interface with joined tables
+    * @return Promise<JobAplliance>
+    * @memberof AppliancesRepository
+    */
     async getJobAppliance(appliancesDto: AppliancesDto): Promise<JobAplliance> {
         let query = await this.query(`select  appliances.job_id as jobId,
                 appliances.user_name as userName,
