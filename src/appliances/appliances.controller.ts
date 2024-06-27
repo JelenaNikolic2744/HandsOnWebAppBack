@@ -8,10 +8,10 @@ export class AppliancesController {
     constructor(private readonly appliancesService: AppliancesService, private appliancesRepository: AppliancesRepository) { }
 
     /**
-  * @description Returns a string if email sent successfully
-  * @return Promise<string>
-  * @memberof AppliancesController
-  */
+     * @description Returns a string if email sent successfully
+     * @return Promise<string>
+     * @memberof AppliancesController
+     */
     @Post()
     async createJob(
         @Body(

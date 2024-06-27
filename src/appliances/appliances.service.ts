@@ -7,7 +7,11 @@ import * as nodemailer from 'nodemailer';
 export class AppliancesService {
     constructor(private appliancesRepository: AppliancesRepository) { }
 
-
+    /**
+     * @description If appliance does not exists saves it and sends email
+     * @return Promise<string>
+     * @memberof AppliancesService
+     */
     async handleAppliance(applianceDto: AppliancesDto): Promise<string> {
         let foundAppliance = await this.appliancesRepository.existsAppliance(applianceDto)
         if (foundAppliance) {
@@ -30,12 +34,15 @@ export class AppliancesService {
         return 'Appliance submited successfully'
     }
 
-    async sendEmail(applianceDto: AppliancesDto, jobAppliance: JobAplliance) {
+    /**
+     * @description Sends email
+     * @return Promise<void>
+     * @memberof AppliancesService
+     */
+    async sendEmail(applianceDto: AppliancesDto, jobAppliance: JobAplliance): Promise<void> {
         try {
-            const testAccount = await nodemailer.createTestAccount();
-            console.log(testAccount);
+            await nodemailer.createTestAccount();
 
-            // Use the testAccount to create a transporter and send emails
             const transporter = nodemailer.createTransport({
                 host: 'smtp.ethereal.email',
                 port: 587,
@@ -44,20 +51,15 @@ export class AppliancesService {
                     pass: 'FcWPrYNNNMTu8AXN5d'
                 }
             });
-            console.log(jobAppliance.companyname)
-            // Example message object
+
             const message = {
                 from: 'Job website',
                 to: `Recipient ${jobAppliance.companyname}@gmail.com`,
                 subject: `Applicant for job ${jobAppliance.jobname}`,
                 text: `${applianceDto.applianceText}`,
             };
-            console.log(message)
-            const info = await transporter.sendMail(message);
-            console.log('Message sent: %s', info.messageId);
-            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+            await transporter.sendMail(message);
 
-            // Close the transporter when done
             transporter.close();
         } catch (err) {
             console.error('Error sending email:', err.message);

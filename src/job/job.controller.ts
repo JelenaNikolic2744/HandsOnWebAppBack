@@ -8,10 +8,10 @@ export class JobController {
     constructor(private readonly jobService: JobService) { }
 
     /**
-  * @description Returns a created job
-  * @return Promise<Job>
-  * @memberof JobController
-  */
+     * @description Returns a created job
+     * @return Promise<Job>
+     * @memberof JobController
+     */
     @Post()
     async createJob(
         @Body(
@@ -26,20 +26,20 @@ export class JobController {
     }
 
     /**
-  * @description Returns a list of jobs
-  * @return Promise<Job[]>
-  * @memberof JobController
-  */
+     * @description Returns a list of jobs
+     * @return Promise<Job[]>
+     * @memberof JobController
+     */
     @Get()
     async getJobs(): Promise<Job[]> {
         return await this.jobService.getJobs();
     }
 
     /**
-  * @description Returns a message if successfull delete
-  * @return Promise<string>
-  * @memberof JobController
-  */
+     * @description Returns a message if successfull delete
+     * @return Promise<string>
+     * @memberof JobController
+     */
     @Delete()
     async deleteTask(
         @Body(

@@ -11,17 +11,22 @@ export class CompanyRepository extends Repository<Company> {
     }
 
     /**
-   * @description Returns user after it is saved in database
-   * @return Promise<User>
-   * @memberof UserRepository
-   */
-    async saveCompany(company: CompanyDto): Promise<any> {
+    * @description Saves company and returns it
+    * @return Promise<Company>
+    * @memberof CompanyRepository
+    */
+    async saveCompany(company: CompanyDto): Promise<Company> {
         let newCompany = this.create({
             companyName: company.companyName
         })
         return await this.save(newCompany)
     }
 
+    /**
+    * @description Checks if company exists and returns a company
+    * @return Promise<Company>
+    * @memberof CompanyRepository
+    */
     async checkCompany(companyId: number): Promise<Company> {
         return await this.createQueryBuilder('company')
             .where('company_id = :companyId', { companyId: companyId })
@@ -29,12 +34,22 @@ export class CompanyRepository extends Repository<Company> {
 
     }
 
+    /**
+    * @description Returns list of companies
+    * @return Promise<Company[]>
+    * @memberof CompanyRepository
+    */
     async getCompanies(): Promise<Company[]> {
         return await this.createQueryBuilder('company')
             .getMany()
 
     }
 
+    /**
+    * @description Returns delete result if successfull delete
+    * @return Promise<DeleteResult>
+    * @memberof CompanyRepository
+    */
     async removeCompany(companyId: number): Promise<DeleteResult> {
         return await this.createQueryBuilder()
             .delete()
