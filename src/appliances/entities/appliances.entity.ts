@@ -4,13 +4,15 @@ import {
     Column,
     ManyToOne,
     JoinColumn,
+    PrimaryColumn,
+    PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity('appliances')
 export class Appliance {
-    @Column({
+    @PrimaryGeneratedColumn({
         type: 'int',
-        name: 'job_id'
+        name: 'appliace_id'
     })
     appliancesId: number;
 

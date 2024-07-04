@@ -54,9 +54,15 @@ export class JobRepository extends Repository<Job> {
     * @memberof JobRepository
     */
     async getJobs(): Promise<Job[]> {
-        return await this.createQueryBuilder('job')
-            .getMany()
-
+        return await this.query(`select  
+                job.job_id as jobId,
+                job.job_name as jobName,
+                job.job_description as jobDescription,
+                company.company_name as companyName
+                from job 
+                left join company
+	            on job.company_id = company.company_id`)
+        
     }
 
     /**
