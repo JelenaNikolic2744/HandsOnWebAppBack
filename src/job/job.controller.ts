@@ -2,6 +2,7 @@ import { Body, Controller, ValidationPipe, Post, Delete, Get } from '@nestjs/com
 import { JobService } from './job.service';
 import { JobDto, JobIdDto } from './dto/job.dto';
 import { Job } from './entities/job.entity';
+import { Message } from 'src/appliances/appliances.service';
 
 @Controller('job')
 export class JobController {
@@ -37,7 +38,7 @@ export class JobController {
 
     /**
      * @description Returns a message if successfull delete
-     * @return Promise<string>
+     * @return Promise<Message>
      * @memberof JobController
      */
     @Delete()
@@ -49,7 +50,7 @@ export class JobController {
                 whitelist: true,
             }),
         )
-        jobIdDto: JobIdDto): Promise<string> {
+        jobIdDto: JobIdDto): Promise<Message> {
         return await this.jobService.removeJob(jobIdDto);
     }
 }

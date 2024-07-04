@@ -2,6 +2,7 @@ import { Controller, Get, Post, Delete, Body, ValidationPipe } from '@nestjs/com
 import { CompanyService } from './company.service';
 import { CompanyDto, CompanyIdDto } from './dto/company.dto';
 import { Company } from './entities/company.entity';
+import { Message } from 'src/appliances/appliances.service';
 
 @Controller('company')
 export class CompanyController {
@@ -37,7 +38,7 @@ export class CompanyController {
 
     /**
      * @description Returns message if successfull delete of company
-     * @return Promise<string>
+     * @return Promise<Message>
      * @memberof CompanyController
      */
     @Delete()
@@ -49,7 +50,7 @@ export class CompanyController {
                 whitelist: true,
             }),
         )
-        companyIdDto: CompanyIdDto): Promise<string> {
+        companyIdDto: CompanyIdDto): Promise<Message> {
         return await this.companyService.removeCompany(companyIdDto);
     }
 }

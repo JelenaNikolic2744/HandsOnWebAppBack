@@ -44,6 +44,7 @@ export class AppliancesRepository extends Repository<Appliance> {
         return await this.createQueryBuilder('appliance')
             .where('job_id = :jobId', { jobId: appliancesDto.jobId })
             .andWhere('user_email = :userEmail', { userEmail: appliancesDto.userEmail })
+            .andWhere('user_name = :userName', { userName: appliancesDto.userName })
             .getOne()
     }
 

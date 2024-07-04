@@ -4,7 +4,6 @@ import {
     Column,
     ManyToOne,
     JoinColumn,
-    PrimaryColumn,
     PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -26,7 +25,6 @@ export class Appliance {
         type: 'varchar',
         length: 20,
         nullable: false,
-        unique: true,
         name: 'user_name'
     })
     userName: string;
@@ -35,7 +33,6 @@ export class Appliance {
         type: 'varchar',
         length: 20,
         nullable: false,
-        unique: true,
         name: 'user_email'
     })
     userEmail: string;

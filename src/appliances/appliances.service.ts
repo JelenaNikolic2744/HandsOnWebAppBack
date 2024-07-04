@@ -3,6 +3,10 @@ import { AppliancesDto } from './dto/appliances.dto';
 import { AppliancesRepository, JobAplliance } from './appliances.repository';
 import * as nodemailer from 'nodemailer';
 
+export interface Message {
+    message: string
+}
+
 @Injectable()
 export class AppliancesService {
     constructor(private appliancesRepository: AppliancesRepository) { }
@@ -12,7 +16,7 @@ export class AppliancesService {
      * @return Promise<string>
      * @memberof AppliancesService
      */
-    async handleAppliance(applianceDto: AppliancesDto): Promise<string> {
+    async handleAppliance(applianceDto: AppliancesDto): Promise<Message> {
         let foundAppliance = await this.appliancesRepository.existsAppliance(applianceDto)
         if (foundAppliance) {
             throw new HttpException(
@@ -31,7 +35,7 @@ export class AppliancesService {
 
         await this.sendEmail(applianceDto, jobAppliance)
 
-        return 'Appliance submited successfully'
+        return { message: 'Appliance submited successfully' }
     }
 
     /**

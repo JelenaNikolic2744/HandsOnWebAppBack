@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Company } from './entities/company.entity';
 import { CompanyDto, CompanyIdDto } from './dto/company.dto';
 import { CompanyRepository } from './company.repository';
+import { Message } from 'src/appliances/appliances.service';
 
 @Injectable()
 export class CompanyService {
@@ -39,7 +40,7 @@ export class CompanyService {
      * @return Promise<string>
      * @memberof CompanyService
      */
-    async removeCompany(companyIdDto: CompanyIdDto): Promise<string> {
+    async removeCompany(companyIdDto: CompanyIdDto): Promise<Message> {
 
         let foundCompany = await this.companyRepository.checkCompany(companyIdDto.companyId)
         if (!foundCompany) {
@@ -54,6 +55,6 @@ export class CompanyService {
                 'Company not deleted successfully', HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
-        return "Successfully deleted"
+        return { message: "Successfully deleted" }
     }
 }
